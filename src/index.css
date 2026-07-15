@@ -1,0 +1,111 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --neon-purple: #A855F7;
+  --neon-pink: #EC4899;
+  --neon-cyan: #06B6D4;
+  --deep-bg: #0B0813;
+  --card-bg: #141121;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #2A244D #0B0813;
+}
+
+*::-webkit-scrollbar {
+  width: 6px;
+}
+*::-webkit-scrollbar-track {
+  background: #0B0813;
+}
+*::-webkit-scrollbar-thumb {
+  background: #2A244D;
+  border-radius: 3px;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+/* Aurora mesh gradient for loading states */
+.aurora-mesh {
+  background: linear-gradient(
+    135deg,
+    var(--neon-purple),
+    var(--neon-pink),
+    var(--neon-cyan),
+    var(--neon-purple)
+  );
+  background-size: 400% 400%;
+  animation: auroraCycle 6s ease-in-out infinite;
+}
+
+@keyframes auroraCycle {
+  0%, 100% { background-position: 0% 50%; }
+  25% { background-position: 100% 0%; }
+  50% { background-position: 100% 100%; }
+  75% { background-position: 0% 100%; }
+}
+
+/* Shimmer skeleton loader */
+.shimmer-loader {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(168, 85, 247, 0.08) 25%,
+    rgba(168, 85, 247, 0.15) 50%,
+    rgba(168, 85, 247, 0.08) 75%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmerSlide 2s linear infinite;
+}
+
+@keyframes shimmerSlide {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Neon glow shadow utility */
+.neon-glow {
+  box-shadow:
+    0 0 15px rgba(168, 85, 247, 0.3),
+    0 0 30px rgba(168, 85, 247, 0.1);
+}
+
+.neon-glow-pink {
+  box-shadow:
+    0 0 15px rgba(236, 72, 153, 0.3),
+    0 0 30px rgba(236, 72, 153, 0.1);
+}
+
+/* Glass panel */
+.glass-panel {
+  background: rgba(20, 17, 33, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(42, 36, 77, 0.6);
+}
+
+/* Floating orb background accents */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.15;
+  pointer-events: none;
+}
+
+/* Smooth interactive transitions */
+.interactive-scale {
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s ease;
+}
+.interactive-scale:hover {
+  transform: scale(1.03);
+}
+.interactive-scale:active {
+  transform: scale(0.97);
+}
