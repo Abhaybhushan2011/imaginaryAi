@@ -23,6 +23,7 @@ export default function App() {
       : prompt.trim();
 
     try {
+      // Dynamic operational route dispatcher mapping
       const res = await fetch('/api/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -31,13 +32,17 @@ export default function App() {
 
       if (!res.ok) {
         const errData = await res.json().catch(() => ({}));
-        throw new Error(errData.error || `Server responded with ${res.status}`);
+        throw new Error(errData.error || `Server latency down: Cluster responded with ${res.status}`);
       }
 
       const data = await res.json();
-      setGeneratedImage(data.image);
+      if (data.image) {
+        setGeneratedImage(data.image);
+      } else {
+        throw new Error('Base64 stream allocation array crashed.');
+      }
     } catch (err) {
-      setRuntimeError(err.message || 'Something went wrong. Please try again.');
+      setRuntimeError(err.message || 'Quantum handshake timeout. Please check dashboard logs.');
     } finally {
       setIsLoading(false);
     }
@@ -61,15 +66,15 @@ export default function App() {
   };
 
   return (
-    <div className="relative min-h-screen bg-deep overflow-hidden">
-      {/* Ambient Orbs */}
-      <div className="orb w-96 h-96 bg-neon-purple/30 -top-48 -left-48" />
-      <div className="orb w-80 h-80 bg-neon-pink/20 top-1/3 -right-40" />
-      <div className="orb w-64 h-64 bg-neon-cyan/20 bottom-20 left-1/4" />
+    <div className="relative min-h-screen bg-deep overflow-hidden select-none">
+      {/* Ambient background blur elements */}
+      <div className="orb w-96 h-96 bg-neon-purple/20 -top-48 -left-48" />
+      <div className="orb w-80 h-80 bg-neon-pink/10 top-1/3 -right-40" />
+      <div className="orb w-64 h-64 bg-neon-cyan/10 bottom-20 left-1/4" />
 
       <Header />
 
-      <main className="relative z-10 pt-24 pb-36 space-y-6 max-w-4xl mx-auto">
+      <main className="relative z-10 pt-24 pb-36 space-y-6 max-w-4xl mx-auto px-4">
         <OutputStage
           generatedImage={generatedImage}
           isLoading={isLoading}
