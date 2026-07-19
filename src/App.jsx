@@ -32,17 +32,17 @@ export default function App() {
 
       if (!res.ok) {
         const errData = await res.json().catch(() => ({}));
-        throw new Error(errData.error || `Server latency down: Cluster responded with ${res.status}`);
+        throw new Error(errData.error || `Server error (${res.status}). Please try again.`);
       }
 
       const data = await res.json();
       if (data.image) {
         setGeneratedImage(data.image);
       } else {
-        throw new Error('Base64 stream allocation array crashed.');
+        throw new Error('No image was returned. Please try again.');
       }
     } catch (err) {
-      setRuntimeError(err.message || 'Quantum handshake timeout. Please check dashboard logs.');
+      setRuntimeError(err.message || 'Something went wrong. Please try again.');
     } finally {
       setIsLoading(false);
     }
